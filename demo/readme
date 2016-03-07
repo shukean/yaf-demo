@@ -1,0 +1,28 @@
+
+1. 需要在sms库 建立表如下:
+
+CREATE TABLE `sms_uniq_keys` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `msisdn` varchar(11) NOT NULL DEFAULT '',
+  `uniq_key` varchar(32) NOT NULL DEFAULT '',
+  `atime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uniq_key` (`uniq_key`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+需要的php扩展
+yaf
+mb_string
+mysqli
+
+php.ini 中增加yaf配置
+[yaf]
+yaf.use_namespace=1
+yaf.use_spl_autoload=1
+
+需要创建目录
+logs=./../logs
+logs/sms/oplog
+logs/sms/log
+logs/sms/bqlog
