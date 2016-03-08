@@ -2,7 +2,8 @@
 
 define('APP_PATH', dirname(__DIR__));
 define('APP_ROOT_PATH', dirname(APP_PATH));
-define('APP_LOG_PATH', APP_ROOT_PATH.'/../logs/sms');
+define('APP_NAME', basename(APP_ROOT_PATH));
+define('APP_LOG_PATH', APP_ROOT_PATH.'/../logs/'.APP_NAME);
 
 final class Init{
 
@@ -55,7 +56,7 @@ final class Init{
 		\Yaf\Loader::import('ExtraFunc.php');
 
 		//替换原有的view
-		Yaf\Dispatcher::getInstance()->setView(new \JsonView());
+		//Yaf\Dispatcher::getInstance()->setView(new \JsonView());
 
 		register_shutdown_function(['Init', 'end']);
 
@@ -63,7 +64,7 @@ final class Init{
     }
 
     public static function end(){
-        //检测mysql事作是否已经释放
+        //检测mysql事物是否已经释放
         if (($num = \Mysql\Db::getMasterTransNums()) > 0){
             bqlog_error(__LINE__, __FILE__, "mysql trans not release, mysql will be auto rollback", 0, ['num' => $num]);
             \Mysql\Db::freeMasterTransNotReleaseLinks();
