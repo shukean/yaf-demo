@@ -1,3 +1,6 @@
 [submodule "demo/application/library/Verify"]
 	path = demo/application/library/Verify
 	url = https://github.com/shukean/php-verify-input.git
+[submodule "demo/application/library/Mysql2"]
+	path = demo/application/library/Mysql
+	url = https://github.com/shukean/php-mysqli-lib.git
