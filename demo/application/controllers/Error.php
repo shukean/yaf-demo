@@ -24,7 +24,6 @@ class ErrorController extends BaseControl{
                 bqlog_error($exception->getLine(), $exception->getFile(), $exception->getMessage(), $exception->getCode());
             }
         }
-        $
         $this->setJson(700, str_replace(APP_ROOT_PATH, '', "[".$exception->getCode()."]".$exception->getMessage()), [
             'reqid' => G_REQID,]);
     }
