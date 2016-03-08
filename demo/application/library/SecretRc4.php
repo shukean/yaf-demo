@@ -1,10 +1,5 @@
 <?php
 
-/**
- *  Copyright (c) 2013-2014 yky@yky.pw
- *  auth.php 2014-5-20
- */
-
 class SecretRc4{
 
 	private static $_encode = 1;

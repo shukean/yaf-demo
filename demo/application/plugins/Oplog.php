@@ -1,12 +1,5 @@
 <?php
 
-/**
- *  Copyright (c) 2013-2014
- *  This is no free page
- *  oplog.php  2014-11-4 下午1:03:40 PHP UTF-8
- *  @author yky@yky.pw
- */
-
 class OplogPlugin extends \Yaf\Plugin_Abstract{
 
     private static $tmp;
