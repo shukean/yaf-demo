@@ -61,7 +61,7 @@ function bqlog($type, $line, $file, $msg, $code=0, array $params=[]){
     $params['G_LOGID'] = defined('G_LOGID') ? G_LOGID : 'undef';
     $params['G_PlATFROM'] = defined('G_PlATFROM') ? G_PlATFROM : 'undef';
 
-    //TODO:
+    return BqLogger::$type($msg, $code, $params);
 }
 
 function bqlog_debug($line, $file, $msg, $code=0, array $params=[]){
