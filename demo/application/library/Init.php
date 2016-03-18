@@ -50,7 +50,7 @@ final class Init{
 	    !is_dir(APP_LOG_PATH.'/bqlog/') && mkdir(APP_LOG_PATH.'/bqlog/', 0755, true);
 	    \Yaf\Loader::import('BqLogger/BqLogger.php');
 		BqLogger::init([
-		    'logFile' => APP_LOG_PATH.'/bqlog/',
+		    'logFile' => APP_LOG_PATH.'/bqlog/'.APP_NAME,
 		    'logLevel' => APP_ENV_DEBUG || APP_ENV_PRE ? 'debug' : 'info',
 		]);
 		\Yaf\Loader::import('ExtraFunc.php');
