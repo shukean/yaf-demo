@@ -2,7 +2,7 @@
 
 namespace Dbs;
 
-class Dome extends \Mysql\Table{
+class Demo extends \Mysql\Table{
 
     public static function table(){
         return 'table_name';

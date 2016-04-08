@@ -14,13 +14,13 @@ class Handler{
         $log[] = sprintf("%-4s%-50s%-6s%-s", '#', 'File', 'Line', 'Method');
         $i = 1;
         $args = [];
-        foreach ($debugs as $k => $row){
+        foreach ($debugs as $row){
             $method = (!empty($row['class']) ? $row['class'].$row['type'] : '').$row['function'];
 
             if ($method == 'Handler::trace') continue;
 
             $method .= '(';
-		        foreach ($row['args'] as $arg){
+		        foreach ($row['args'] as $k => $arg){
 		            if (is_array($arg)){
 		                $method .= 'array($'.$i.$k.'), ';
 		                $args[$i.$k] = $arg;
