@@ -1,4 +1,4 @@
 <?php
 
-include __DIR__.'/../application/library/Init.php';
-Init::start('product')->bootstrap()->run();
+include __DIR__.'/../application/library/Yk/Init.php';
+Yk\Init::start()->bootstrap()->run();

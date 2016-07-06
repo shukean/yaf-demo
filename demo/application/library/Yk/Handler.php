@@ -1,13 +1,18 @@
 <?php
 
+namespace Yk;
+
 class Handler{
 
     public static function trace($code, $message){
 
         $debugs = debug_backtrace(DEBUG_BACKTRACE_PROVIDE_OBJECT, 50);
         $log = [];
-        if (defined('G_LOGID')){
-            $log[] = "[logid:".G_LOGID."] [reqid:".G_REQID."]";
+
+        $req_extra = \Yk\RequestExtras::getInstance();
+        if ($req_extra->request_id){
+            $log[] = "[flogid:".$req_extra->from_log_id."] [reqid:".$req_extra->request_id."]";
+            $log[] = "[freqid:".$req_extra->from_request_id."] [fplatid:".$req_extra->from_platform_id."]";
         }
         $log[] = '['.$code.']'.$message;
         $log[] = '------------------------------------------------------------';
@@ -41,7 +46,7 @@ class Handler{
         }
         $log[] = "\n".json_encode($args, JSON_UNESCAPED_UNICODE)."\n\n";
 
-        error_log(implode("\n", $log), 3, APP_LOG_PATH.'/log/trace.'.date('YmdH'));
+        error_log(implode("\n", $log), 3, getConfVal('log.path').'/trace.'.date('YmdH'));
     }
 
     public static function errorHandler($error_code, $error_message, $err_file = '', $err_line = 0){
@@ -53,9 +58,9 @@ class Handler{
 	    self::trace($error_code, $error_message);
 
 	    $err_code = yrandom(8, true);
-	    bqlog_error(__LINE__, __FILE__, $error_message."[sc:$err_code]", $error_code);
+	    \ykloger::error($error_message."[sc:$err_code]", $error_code);
 
-	    if (APP_ENV_DEBUG || APP_ENV_PRE){
+	    if (Config::getInstance()->env != ENV_PRODUCT){
 	        $data = [
 	            'code' => 500,
 	            'msg' => "[$error_code][sc:$err_code]".$error_message,

@@ -1,6 +1,8 @@
 <?php
 
-abstract class BaseControl extends \Yaf\Controller_Abstract{
+namespace Yk;
+
+abstract class BaseControler extends \Yaf\Controller_Abstract{
 
     /**
      *
@@ -14,9 +16,12 @@ abstract class BaseControl extends \Yaf\Controller_Abstract{
      */
     protected $dispatcher = null;
 
-    public function init(){
+    protected $request_extras = null;
+
+    final public function init(){
         $this->yaf = \Yaf\Application::app();
         $this->dispatcher = $this->yaf->getDispatcher();
+        $this->request_extras = \Yk\RequestExtras::getInstance();
 
         //关闭默认的view输出, 只启用response
         $this->dispatcher->autoRender(false);
@@ -24,13 +29,18 @@ abstract class BaseControl extends \Yaf\Controller_Abstract{
             //phpuint 下关闭response的输出
             $this->dispatcher->returnResponse(true);
         }
+
+        //替代yaf的init
+        if (method_exists($this, 'cInit')){
+            $this->cInit();
+        }
     }
 
     public function setJson($code, $msg, array $data = []){
         $response = [
             'code' => $code,
             'msg' => $msg,
-            'reqid' => G_REQID,
+            'reqid' => $this->request_extras->request_id,
         ];
         if (!empty($data)){
             $response['data'] = $data;

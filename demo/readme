@@ -2,9 +2,12 @@
 yaf
 mb_string
 mysqli
+toml
+ykloger
 
 ||php.ini 中增加yaf配置
 [yaf]
+yaf.environ = product | test
 yaf.use_namespace=1
 yaf.use_spl_autoload=1
 
