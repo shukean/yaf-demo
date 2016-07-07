@@ -83,8 +83,15 @@ function yrandom($len, $isnumeric = false){
     return $hash;
 }
 
-function getConfVal($key_str){
+function get_conf_val($key_str){
     return Yk\Config::getInstance()->g('config.'.$key_str);
+}
+
+function get_cookie_val($key){
+    if (function_exists('user_get_cookie_val')){
+        return user_get_cookie_val($key);
+    }
+    return isset($_COOKIE[$key]) ? $_COOKIE[$key] : null;
 }
 
 

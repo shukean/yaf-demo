@@ -36,7 +36,7 @@ abstract class BaseControler extends \Yaf\Controller_Abstract{
         }
     }
 
-    public function setJson($code, $msg, array $data = []){
+    public function setJson($code, $msg, array $data = [], $xsrf_addition_key = NULL){
         $response = [
             'code' => $code,
             'msg' => $msg,
@@ -45,12 +45,25 @@ abstract class BaseControler extends \Yaf\Controller_Abstract{
         if (!empty($data)){
             $response['data'] = $data;
         }
+        if ($xsrf_addition_key && ($xsrf_token = \Xsrf::set($xsrf_addition_key)) != null){
+            $response['_xsrf_token'] = $xsrf_token;
+        }
 
         $this->setTextJson(json_encode($response, JSON_UNESCAPED_UNICODE));
     }
 
     public function setTextJson($json){
         $this->getResponse()->setbody($json);
+    }
+
+    public function xsrfCheck($xsrf_addition_key = NULL){
+        $token = get_cookie_val('_xsrf_token');
+        if (!empty($token)){
+            if (\Xsrf::checkToken($token, $xsrf_addition_key)){
+                return ;
+            }
+        }
+        throw new \Exception('request is not available in this context', 700);
     }
 
 }

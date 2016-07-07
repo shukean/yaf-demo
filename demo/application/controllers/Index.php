@@ -18,4 +18,13 @@ class IndexController extends \Yk\BaseControler{
         $this->setJson(0, 'hello world !');
     }
 
+    public function xsrfAction(){
+
+        $_COOKIE['_xsrf_token'] = 'b2459blY+BhW66C6Xzg+NMEQLB';
+
+        $this->xsrfCheck(true);
+
+        $this->setJson(0, 'success', [], true);
+    }
+
 }

@@ -2,12 +2,16 @@
 
 class BootStrap extends \Yaf\Bootstrap_Abstract{
 
+    //这里可以引入全局的方法
+    public static function _initLoadLibs(){
+
+    }
+
     public static function _initYkLogConf(){
         \ykloger::init([
-            'logFile' => getConfVal('log.path').'/'.getConfVal('log.ykloger.pre'),
+            'logFile' => get_conf_val('log.path').'/'.get_conf_val('log.ykloger.pre'),
             'logLevel' => \Yk\Config::getInstance()->env == ENV_PRODUCT ? YKLOGER_LEVEL_INFO : YKLOGER_LEVEL_DEBUG
         ]);
-
     }
 
     public static function _initRequestExtra(){
@@ -35,7 +39,7 @@ class BootStrap extends \Yaf\Bootstrap_Abstract{
     }
 
     public static function _initMysqlConf(){
-        \Mysql\Db::initConfig(getConfVal('mysql'));
+        \Mysql\Db::initConfig(get_conf_val('mysql'));
 
         \Yk\Hooks::regShutdownFunction(function (){
             //检测mysql事物是否已经释放

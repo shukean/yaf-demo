@@ -7,14 +7,14 @@ class SecretRc4{
 
 	public static function encode($str, $key = null, $ttl = 0){
 		if ($key == null) {
-			$key = getConfVal('secret.rc4.key');
+			$key = get_conf_val('secret.rc4.key');
 		}
 		return self::rc4($str, self::$_encode, $key, $ttl);
 	}
 
 	public static function decode($str, $key = null){
 		if ($key == null) {
-			$key = getConfVal('secret.rc4.key');
+			$key = get_conf_val('secret.rc4.key');
 		}
 		return self::rc4($str, self::$_decode, $key);
 	}

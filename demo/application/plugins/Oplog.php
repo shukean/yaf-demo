@@ -10,7 +10,7 @@ class OplogPlugin extends \Yaf\Plugin_Abstract{
     }
 
     private function uri_oplog($message){
-        error_log($message."\n", 3, getConfVal('log.path').'/oplog.'.date('YmdH'));
+        error_log($message."\n", 3, get_conf_val('log.path').'/oplog.'.date('YmdH'));
     }
 
     public function routerStartup(Yaf\Request_Abstract $request, Yaf\Response_Abstract $response){

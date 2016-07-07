@@ -46,7 +46,7 @@ class Handler{
         }
         $log[] = "\n".json_encode($args, JSON_UNESCAPED_UNICODE)."\n\n";
 
-        error_log(implode("\n", $log), 3, getConfVal('log.path').'/trace.'.date('YmdH'));
+        error_log(implode("\n", $log), 3, get_conf_val('log.path').'/trace.'.date('YmdH'));
     }
 
     public static function errorHandler($error_code, $error_message, $err_file = '', $err_line = 0){
