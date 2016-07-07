@@ -4,6 +4,14 @@
  *  Copyright (c) 2013-2014 yky@yky.pw
  *  https://github.com/shukean/php-yaf-yk
  *  Error.php  下午8:40:25  UTF-8
+ *
+ *
+ *  错误码区间
+ *  0-200 表示正常
+ *  201 - 699 表示框架严重异常
+ *  700 - 799 表示框架一般异常
+ *  800 -   表示接口异常
+ *
  */
 
 class ErrorController extends \Yk\BaseControler{
