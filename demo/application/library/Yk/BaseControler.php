@@ -59,7 +59,7 @@ abstract class BaseControler extends \Yaf\Controller_Abstract{
     public function xsrfCheck($xsrf_addition_key = NULL){
         $token = get_cookie_val('_xsrf_token');
         if (!empty($token)){
-            if (\Xsrf::checkToken($token, $xsrf_addition_key)){
+            if (\Xsrf::checkToken($token, $xsrf_addition_key) !== false){
                 return ;
             }
         }
