@@ -593,6 +593,9 @@ namespace Yaf {
 		}
 		public function getModuleName() {
 		}
+		/**
+		 * @return \Yaf\View\Simple
+		 */
 		public function getView() {
 		}
 		public function initView(array $options = NULL) {

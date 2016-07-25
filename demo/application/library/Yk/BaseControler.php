@@ -30,6 +30,8 @@ abstract class BaseControler extends \Yaf\Controller_Abstract{
             $this->dispatcher->returnResponse(true);
         }
 
+        $this->getView()->setScriptPath(APP_BASE.'/views');
+
         //替代yaf的init
         if (method_exists($this, 'cInit')){
             $this->cInit();

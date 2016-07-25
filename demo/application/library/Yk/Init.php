@@ -5,6 +5,7 @@ namespace Yk;
 define('APP_PATH', dirname(dirname(__DIR__)));
 define('APP_ROOT_PATH', dirname(APP_PATH));
 define('APP_NAME', basename(APP_ROOT_PATH));
+define('APP_BASE', dirname(APP_PATH));
 
 define('ENV_DEBUG', 2);
 define('ENV_PREVIEW', 1);
