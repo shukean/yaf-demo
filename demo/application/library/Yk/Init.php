@@ -55,7 +55,7 @@ final class Init{
 		    \Yaf\Dispatcher::getInstance()->setErrorHandler(['Yk\Handler', 'errorHandler'], E_ALL);
 		}
 
-		\Yaf\Loader::import('Yk/ExtraFunc.php');
+		\Yaf\Loader::import('Yk/Com.php');
 		register_shutdown_function(['Yk\Init', 'end']);
 
 		$app_config->inited();

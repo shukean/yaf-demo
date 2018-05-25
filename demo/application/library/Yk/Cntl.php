@@ -2,7 +2,7 @@
 
 namespace Yk;
 
-abstract class BaseControler extends \Yaf\Controller_Abstract{
+abstract class Cntl extends \Yaf\Controller_Abstract{
 
     /**
      *
@@ -18,10 +18,12 @@ abstract class BaseControler extends \Yaf\Controller_Abstract{
 
     protected $request_extras = null;
 
+    private $response_data = [];
+
     final public function init(){
         $this->yaf = \Yaf\Application::app();
         $this->dispatcher = $this->yaf->getDispatcher();
-        $this->request_extras = \Yk\RequestExtras::getInstance();
+        $this->request_extras = \Yk\ReqExtras::getInstance();
 
         //关闭默认的view输出, 只启用response
         $this->dispatcher->autoRender(false);
@@ -38,12 +40,19 @@ abstract class BaseControler extends \Yaf\Controller_Abstract{
         }
     }
 
+    public function setVal($k, $v){
+        $this->response_data[$k] = $v;
+    }
+
     public function setJson($code, $msg, array $data = [], $xsrf_addition_key = NULL){
         $response = [
             'code' => $code,
             'msg' => $msg,
-            'reqid' => $this->request_extras->request_id,
+            'reqid' => $this->request_extras->inner_req_id,
         ];
+        if (!empty($this->response_data)){
+            $data = array_merge($this->response_data, $data);
+        }
         if (!empty($data)){
             $response['data'] = $data;
         }

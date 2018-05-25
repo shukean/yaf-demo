@@ -15,6 +15,8 @@ class Config {
 
     private $clientip = 'N/A';
 
+    private $data = [];
+
     private function __construct(){}
 
     private function __clone(){}
@@ -29,6 +31,10 @@ class Config {
 
     public function inited(){
         $this->inited = true;
+    }
+
+    public function load($top, $toml_file_name){
+        $this->data[$top] = toml_parse_file(APP_BASE."/conf/toml/".$toml_file_name);
     }
 
     public function __get($key){
@@ -48,9 +54,14 @@ class Config {
     public function g($key){
     	$sp = explode('.', $key);
     	if (!isset($this->{$sp[0]})){
-    	    return null;
-    	}
-    	$vals = &$this->{$sp[0]};
+            if(!isset($this->data[$sp[0]])){
+                return null;
+            }else{
+                $vals = &$this->data[$sp[0]];
+            }
+    	}else{
+            $vals = &$this->{$sp[0]};
+        }
 
 		$i = 1;
 		while (isset($sp[$i])){
@@ -62,5 +73,27 @@ class Config {
 			$i++;
 		}
 		return $vals;
+    }
+
+    public function toArray(){
+        return [
+            'time' => [$this->timestamp, $this->mircotime],
+            'setting' => ['env' => $this->env, 'clientip' => $this->clientip, 'err_debug' => $this->err_debug],
+            'config' => $this->config,
+            'data' => $this->data
+        ];
+    }
+
+    public function __debuginfo(){
+        return $this->toArray();
+    }
+
+    public function __set_state($arr){
+        $obj = &\Yk\Config::getInstance();
+        return $obj;
+    }
+
+    public function __tostring(){
+        return serialize($this->toArray());
     }
 }
