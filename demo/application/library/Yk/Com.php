@@ -87,6 +87,10 @@ function get_conf_val($key_str){
     return Yk\Config::getInstance()->g('config.'.$key_str);
 }
 
+function get_toml_val($key_str){
+    return Yk\Config::getInstance()->g('data.'.$key_str);
+}
+
 function get_cookie_val($key){
     if (function_exists('user_get_cookie_val')){
         return user_get_cookie_val($key);

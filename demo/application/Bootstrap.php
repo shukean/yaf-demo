@@ -19,19 +19,19 @@ class BootStrap extends \Yaf\Bootstrap_Abstract{
         $g_reqid = val('g_reqid', VERIFY_String);
         $g_platform = val('g_platform', VERIFY_String);
 
-        $req_extra = \Yk\RequestExtras::getInstance();
+        $req_extras = \Yk\ReqExtras::getInstance();
         if ($g_logid){
-            $req_extra->from_logid_id = $g_logid;
+            $req_extras->outer_log_id = $g_logid;
         }
         if ($g_reqid){
-            $req_extra->from_reqid_id = $g_reqid;
+            $req_extras->outer_req_id = $g_reqid;
         }
         if ($g_platform){
-            $req_extra->from_platform_id = $g_platform;
+            $req_extras->outer_platform_id = $g_platform;
         }
-        $req_extra->request_id = \ykloger::getRequestId();
+        $req_extras->inner_req_id = \ykloger::getRequestId();
 
-        $req_extra->inited();
+        $req_extras->inited();
 
         \Yk\Hooks::regShutdownFunction(function (){
             \ykloger::debug('a request end');

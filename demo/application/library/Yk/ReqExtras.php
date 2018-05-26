@@ -2,14 +2,14 @@
 
 namespace Yk;
 
-class RequestExtras{
+class ReqExtras{
 
     private $inited = false;
 
-    private $request_id = '';
-    private $from_platform_id = '';
-    private $from_log_id = '';
-    private $from_request_id = '';
+    private $inner_req_id = '';
+    private $outer_platform_id = '';
+    private $outer_log_id = '';
+    private $outer_req_id = '';
 
     private function __construct(){}
 

@@ -9,10 +9,10 @@ class Handler{
         $debugs = debug_backtrace(DEBUG_BACKTRACE_PROVIDE_OBJECT, 50);
         $log = [];
 
-        $req_extra = \Yk\RequestExtras::getInstance();
-        if ($req_extra->request_id){
-            $log[] = "[flogid:".$req_extra->from_log_id."] [reqid:".$req_extra->request_id."]";
-            $log[] = "[freqid:".$req_extra->from_request_id."] [fplatid:".$req_extra->from_platform_id."]";
+        $req_extras = \Yk\ReqExtras::getInstance();
+        if ($req_extras->request_id){
+            $log[] = "[flogid:".$req_extras->outer_log_id."] [reqid:".$req_extras->inner_req_id."]";
+            $log[] = "[freqid:".$req_extras->outer_req_id."] [fplatid:".$req_extras->from_platform_id."]";
         }
         $log[] = '['.$code.']'.$message;
         $log[] = '------------------------------------------------------------';

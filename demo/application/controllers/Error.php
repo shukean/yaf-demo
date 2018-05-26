@@ -14,7 +14,7 @@
  *
  */
 
-class ErrorController extends \Yk\BaseControler{
+class ErrorController extends \Yk\Cntl{
 
     public function errorAction(\Exception $exception){
 
@@ -33,7 +33,7 @@ class ErrorController extends \Yk\BaseControler{
             }
         }
         $this->setJson(700, str_replace(APP_ROOT_PATH, '', "[".$exception->getCode()."]".$exception->getMessage()), [
-            'reqid' => \Yk\RequestExtras::getInstance()->request_id,]);
+            'reqid' => \Yk\ReqExtras::getInstance()->inner_req_id,]);
     }
 
 }

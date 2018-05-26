@@ -16,10 +16,10 @@ class OplogPlugin extends \Yaf\Plugin_Abstract{
     public function routerStartup(Yaf\Request_Abstract $request, Yaf\Response_Abstract $response){
 
         self::$tmp = yrandom(6);
-        $req = \Yk\RequestExtras::getInstance();
+        $req = \Yk\ReqExtras::getInstance();
 
         $content = sprintf("[logid:%s] [reqid:%s] [reqtime:%s] [reqip:%s] [io:%s] [req_key:%s] [uri:%s] [post:%s] [get:%s]",
-            $req->from_log_id, $req->request_id, $this->_gettime(), \Yaf\Registry::get('clientip'),
+            $req->outer_log_id, $req->inner_req_id, $this->_gettime(), \Yaf\Registry::get('clientip'),
             'in', self::$tmp, $request->getRequestUri(),
             json_encode($_POST, JSON_UNESCAPED_UNICODE), json_encode($_GET, JSON_UNESCAPED_UNICODE));
 
@@ -28,9 +28,9 @@ class OplogPlugin extends \Yaf\Plugin_Abstract{
 
     public function dispatchLoopShutdown(Yaf\Request_Abstract $request, Yaf\Response_Abstract $response){
 
-        $req = \Yk\RequestExtras::getInstance();
+        $req = \Yk\ReqExtras::getInstance();
         $content = sprintf("[logid:%s] [reqid:%s] [reqtime:%s] [reqip:%s] [io:%s] [req_key:%s] [uri:%s] [response:%s]",
-            $req->from_log_id, $req->request_id, $this->_gettime(), \Yaf\Registry::get('clientip'),
+            $req->outer_log_id, $req->inner_req_id, $this->_gettime(), \Yaf\Registry::get('clientip'),
             'out', self::$tmp, $request->getRequestUri(),
             $response->getBody());
 
